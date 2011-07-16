@@ -11,12 +11,14 @@ namespace NConn
     {
         const int port = 29999;
         TcpListener server;
+        List<ConnClientWorker> clients;
 
         private static ConnServer inst = null;
 
         private ConnServer()
         {
             server = null;
+            clients = new List<ConnClientWorker>();
         }
 
         public static ConnServer GetInstance()
@@ -46,7 +48,8 @@ namespace NConn
         {
             TcpListener server = (TcpListener) result.AsyncState;
 
-            server.EndAcceptTcpClient(result);
+            TcpClient tempSock;
+            tempSock = server.EndAcceptTcpClient(result);
         }
     }
 }
